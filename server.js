@@ -2,9 +2,11 @@ const express = require("express");
 const userRouter = require('./routes/users.route');
 const app = express(); 
 const port = 5050;
-/**Cadena conexion con mongo */
+const dbConfig = require('./config/database.config.js');
 const mongose = require('mongoose');
-mongose.connect('mongodb://127.0.0.1:27017/store')
+
+/**Cadena conexion con mongo */
+mongose.connect(dbConfig.url)
     .then(() => console.log("Conect MongoDB"))
     .catch((err) => {
         console.error(err)
