@@ -1,4 +1,5 @@
-const User = require('../models/user.model');
+const { User } = require('../models/user.model');
+const { ValidateUser } = require('../models/user.model')
 
 const getUsers = async (req, res) => {
     const user = await User.find();
@@ -22,6 +23,11 @@ const deleteByUser = async (req, res) => {
 }
 const createUser = async (req, res) => {
     const user = new User(req.body);
+    response = ValidateUser(user);
+    if (response.error) {
+        res.status(422)
+        .json({message:response.error.details[0].message}); 
+    }
     user.save();
     res.json(user);
 }

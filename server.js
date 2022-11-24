@@ -13,10 +13,10 @@ mongose.connect(dbConfig.url)
     });
 /**Fin de cadena conexion */ 
 
-app.use('/users',userRouter);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
- 
+app.use('/users',userRouter);
 
 app.listen(port, () => {
     console.log(`Servidor corriendo por el puerto ${port}`);
