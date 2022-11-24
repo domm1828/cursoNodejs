@@ -19,7 +19,8 @@ const User = mongoose.model('users',UsersSchema);
 
 const ValidateUser = (user) => {
     const schema = Joi.object({
-        first_name: Joi.string().min(5).max(100).required(),
+    
+        first_name: Joi.string().min(5).max(100).required().regex(),
         last_name: Joi.string().min(5).max(100).required(),
     }).options({ abortEarly: false });
    

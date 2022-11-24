@@ -1,6 +1,7 @@
 const { User } = require('../models/user.model');
 const { ValidateUser } = require('../models/user.model')
 
+
 const getUsers = async (req, res) => {
     const user = await User.find();
     res.json(user);
@@ -25,8 +26,8 @@ const createUser = async (req, res) => {
     const user = new User(req.body);
     response = ValidateUser(user);
     if (response.error) {
-        res.status(422)
-        .json({message:response.error.details[0].message}); 
+       return res.status(422)
+        .json({message:response.error.details}); 
     }
     user.save();
     res.json(user);
