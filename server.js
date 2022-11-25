@@ -4,6 +4,7 @@ const app = express();
 const port = 5050;
 const dbConfig = require('./config/database.config.js');
 const mongose = require('mongoose');
+const productRouter = require("./routes/product.route");
 
 /**Cadena conexion con mongo */
 mongose.connect(dbConfig.url)
@@ -17,6 +18,7 @@ mongose.connect(dbConfig.url)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/users',userRouter);
+app.use('/product',productRouter)
 
 app.listen(port, () => {
     console.log(`Servidor corriendo por el puerto ${port}`);
