@@ -1,6 +1,7 @@
 const express = require("express");
 const userRouter = require('./routes/users.route');
 const app = express(); 
+const bodyParser = require("body-parser");
 const port = 5050;
 const dbConfig = require('./config/database.config.js');
 const mongose = require('mongoose');
@@ -16,7 +17,11 @@ mongose.connect(dbConfig.url)
 
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(
+    bodyParser.urlencoded({
+      extended: true,
+    })
+  );
 app.use('/users',userRouter);
 app.use('/product',productRouter)
 
