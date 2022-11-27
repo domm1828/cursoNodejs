@@ -6,6 +6,7 @@ const port = 5050;
 const dbConfig = require('./config/database.config.js');
 const mongose = require('mongoose');
 const productRouter = require("./routes/product.route");
+const errorHandler = require("./middlewares/errorHandler");
 
 /**Cadena conexion con mongo */
 mongose.connect(dbConfig.url)
@@ -18,13 +19,13 @@ mongose.connect(dbConfig.url)
 
 app.use(express.json());
 app.use(
-    bodyParser.urlencoded({
-      extended: true,
-    })
-  );
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 app.use('/users',userRouter);
 app.use('/product',productRouter)
-
+app.use(errorHandler);
 app.listen(port, () => {
     console.log(`Servidor corriendo por el puerto ${port}`);
 })

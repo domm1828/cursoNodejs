@@ -1,10 +1,12 @@
+var dotenv=require('dotenv');
 var Sequelize=require('sequelize');
+dotenv.config();
 const databaseMysql= new Sequelize(
-    'tienda',
-    'root',
-    '',{
-        host:'localhost',
-        dialect:'mysql'
+    process.env.MYSQL_DATABASE,
+    process.env.MYSQL_USER,
+    process.env.MYSQL_PASSWORD,{
+        host:process.env.MYSQL_HOST,
+        dialect:process.env.MYSQL_DIALECT
     }
 );
 databaseMysql.sync();
