@@ -6,7 +6,7 @@ function validateRequest(req, res, next, schema) {
     };
     const { error, value } = schema.validate(req.body, options);
     if (error) {
-        console.log(error.details[0])
+        console.log(error)
         res.status(400).json({message:`${error.details.map(x => x.message).join(', ')}`});
     } else {
         req.body = value;

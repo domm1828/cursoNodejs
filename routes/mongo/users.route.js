@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-const { ValidateUser } = require('../models/user.model')
-const {getUsers,createUser,findByUser,UpdateByUser,deleteByUser} = require('../controllers/userController');
-const validateIdMongo = require("../middlewares/validateIdMongo");
+const { ValidateUser } = require('../../models/mongo/user.model')
+const {getUsers,createUser,findByUser,UpdateByUser,deleteByUser} = require('../../controllers/mongo/userController');
+const validateIdMongo = require("../../middlewares/validateIdMongo");
 
 
 /**Get all users */

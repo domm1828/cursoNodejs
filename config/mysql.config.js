@@ -1,5 +1,7 @@
 var dotenv=require('dotenv');
 var Sequelize=require('sequelize');
+const path = require('path');
+
 dotenv.config();
 const databaseMysql= new Sequelize(
     process.env.MYSQL_DATABASE,
@@ -9,5 +11,9 @@ const databaseMysql= new Sequelize(
         dialect:process.env.MYSQL_DIALECT
     }
 );
-databaseMysql.sync();
+
+
+
+//databaseMysql.sync({ force: true });
+
 module.exports = databaseMysql;

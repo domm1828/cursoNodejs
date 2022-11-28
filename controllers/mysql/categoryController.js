@@ -1,8 +1,8 @@
-var Products = require('../models/product.model');
-const Controller={}
+const {Category} = require('../../models/mysql/category.model');
+const categoryController = {}
 
-Controller.getProduct = async (req, res) => {
-    const response = await Products.findAll().then((data) => {
+categoryController.getCategory= async (req, res) => {
+    const response = await Category.findAll().then((data) => {
         const res = { error: false, data: data }
         return res;
     }).catch(error => {
@@ -12,17 +12,15 @@ Controller.getProduct = async (req, res) => {
     res.json(response);
 }
 
-Controller.createProduct = async (req, res) => {
+categoryController.createCategory= async (req, res) => {
     try {
+      
         const modelData = {
-            name: req.body.name,
-            stock: req.body.stock,
-            image: req.body.image,
-            category: req.body.category
+            name: req.body.name
         }
-        const response = await Products.create(modelData)
+        const response = await Category.create(modelData)
             .then((data) => {
-                const res = { error: false, data: data, message: "Product Create" }
+                const res = { error: false, data: data, message: "Category Create" }
                 return res;
             }).catch(error => {
                 const res = { error: true, message: error }
@@ -35,10 +33,10 @@ Controller.createProduct = async (req, res) => {
 }
 
 
-Controller.getByIdProduct = async (req, res) => {
+categoryController.getByIdCategory= async (req, res) => {
     try {
         const { id } = req.params;
-        const response = await Products.findAll({
+        const response = await Category.findAll({
             where: { id: id }
         }).then((data) => {
             const res = { error: false, data: data }
@@ -53,32 +51,32 @@ Controller.getByIdProduct = async (req, res) => {
     }
 }
 
-Controller.updateProduct = async (req, res) => {
+categoryController.updateCategory= async (req, res) => {
     try {
         const { id } = req.params;
-        const response = await Products.update(req.body, {
+        const response = await Category.update(req.body, {
             where: { id: id }
         }).then((data) => {
-                const res = { error: false, data: data, message: "Product Update" }
-                return res;
-            }).catch(error => {
-                const res = { error: true, message: error }
-                return res;
-            });
+            const res = { error: false, data: data, message: "Category Update" }
+            return res;
+        }).catch(error => {
+            const res = { error: true, message: error }
+            return res;
+        });
         res.json(response);
     } catch (e) {
         console.log(e)
     }
 }
 
-Controller.deleteProduct = async (req, res) => {
+categoryController.deleteCategory= async (req, res) => {
     try {
         const { id } = req.params;
-       
-        const response = await Products.destroy({
+
+        const response = await Category.destroy({
             where: { id: id }
         }).then((data) => {
-            const res = { error: false, data: data,message:"Deleted Successful" }
+            const res = { error: false, data: data, message: "Deleted Successful" }
             return res;
         }).catch(error => {
             const res = { error: true, message: error }
@@ -90,4 +88,4 @@ Controller.deleteProduct = async (req, res) => {
     }
 }
 
-module.exports = Controller
+module.exports = categoryController
