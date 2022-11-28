@@ -1,24 +1,22 @@
 const express = require("express");
-const userRouter = require('./routes/users.route');
 const app = express(); 
+const bodyParser = require("body-parser");
+const cors = require('cors');
 const port = 5050;
-const dbConfig = require('./config/database.config.js');
-const mongose = require('mongoose');
-const productRouter = require("./routes/product.route");
-
-/**Cadena conexion con mongo */
-mongose.connect(dbConfig.url)
-    .then(() => console.log("Conect MongoDB"))
-    .catch((err) => {
-        console.error(err)
-    });
-/**Fin de cadena conexion */ 
+const errorHandler = require("./middlewares/errorHandler");
+const indexRoutes = require("./routes/index.route.js");
+require('./config/utils.db');
 
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use('/users',userRouter);
-app.use('/product',productRouter)
+
+
+app.use(cors())
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
+app.use(errorHandler);
+app.use('/upload', express.static('upload'));
+app.use('/v0/',indexRoutes);
 
 app.listen(port, () => {
     console.log(`Servidor corriendo por el puerto ${port}`);
