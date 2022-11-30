@@ -22,3 +22,4 @@ mongose.connect(dbConfig.url)
         console.error(err)
     });
 /**Fin de cadena conexion */ 
+mongose.set('strictPopulate', false);
