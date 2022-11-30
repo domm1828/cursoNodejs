@@ -11,31 +11,13 @@ var Products = sequelize.define('product', {
     },
     name: Sequelize.STRING,
     stock: Sequelize.INTEGER,
-    image: Sequelize.TEXT,
-    category: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'categories',
-            key: 'id'
-        }
-    }
+    image: Sequelize.TEXT
 },
     {
-        classMethods: {
-            associate: models => {
-                Products.belongsTo(models.category, {
-                    foreignKey: {
-                        fieldName: 'category',
-                        allowNull: true,
-                        require: true
-                    },
-                    targetKey: 'id'
-                });
-            }
-        }
+
     }
 );
+
 
 
 const ValidateProducts = (req, res, next) => {
@@ -52,7 +34,7 @@ const ValidateProducts = (req, res, next) => {
                 'number.integer': "Ingresa la cantidad de stock",
                 'any.required': "Ingresa la cantidad de stock"
             }),
-        category: Joi.number().integer().required()
+        Category: Joi.number().integer().required()
             .messages({
                 'number.empty': "Ingresa la categoria del producto",
                 'number.integer': "Ingresa la categoria del producto",

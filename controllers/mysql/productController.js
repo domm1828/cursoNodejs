@@ -2,7 +2,9 @@ const {Products} = require('../../models/mysql/product.model');
 const Controller = {}
 
 Controller.getProduct = async (req, res) => {
-    const response = await Products.findAll().then((data) => {
+    const response = await Products.findAll({
+        include: ['categories']
+      }).then((data) => {
         const res = { error: false, data: data }
         return res;
     }).catch(error => {
@@ -24,7 +26,7 @@ Controller.createProduct = async (req, res) => {
             name: req.body.name,
             stock: req.body.stock,
             image: urlImage,
-            category: req.body.category
+            Category: req.body.Category
         }
         const response = await Products.create(modelData)
             .then((data) => {
@@ -50,6 +52,7 @@ Controller.getByIdProduct = async (req, res) => {
     try {
         const { id } = req.params;
         const response = await Products.findAll({
+            include: ['categories'],
             where: { id: id }
         }).then((data) => {
             const res = { error: false, data: data }

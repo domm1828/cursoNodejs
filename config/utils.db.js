@@ -6,6 +6,10 @@ const databaseMysql = require("./mysql.config");
 const dbConfig = require('./database.config.js');
 const mongose = require('mongoose');
 
+Products.belongsTo(Category, {
+  foreignKey: "Category",
+  as: "categories",
+}); 
 Category.sync();
 User.sync();
 Products.sync();
