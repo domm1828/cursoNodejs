@@ -33,7 +33,7 @@ var User = sequelize.define('users', {
         }],
         defaultScope: {
             attributes: {
-                exclude: ['password']
+             //   exclude: ['password']
             }
         }
     });

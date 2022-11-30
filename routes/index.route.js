@@ -7,6 +7,7 @@ const mongoUserRouter = require('./mongo/users.route');
 const mongoProductRouter= require("./mongo/products.route");
 const mongoCategoryRouter= require("./mongo/category.route");
 const express = require("express");
+const MysqlLoginRoutes = require("./mysql/login.route");
 const indexRoutes = express.Router();
 
 indexRoutes.use('/mongo/users',mongoUserRouter);
@@ -16,5 +17,7 @@ indexRoutes.use('/mongo/category',mongoCategoryRouter);
 indexRoutes.use('/mysql/product',mysqlProductRouter);
 indexRoutes.use('/mysql/category',mysqlCategoryRouter);
 indexRoutes.use('/mysql/users',mysqlUsersRouter);
+indexRoutes.use('/mysql/login',MysqlLoginRoutes);
+
 
 module.exports=indexRoutes;

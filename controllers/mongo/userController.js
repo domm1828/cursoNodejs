@@ -1,4 +1,5 @@
 const { User } = require('../../models/mongo/user.model');
+const bcrypt = require('bcrypt');
 
 const getUsers = async (req, res) => {
     const user = await User.find();
@@ -21,7 +22,13 @@ const deleteByUser = async (req, res) => {
     res.json({ 'message': 'Datos Eliminados' });
 }
 const createUser = async (req, res) => {
-    const user = new User(req.body);
+    const modelData = {
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email,
+        password:  bcrypt.hashSync(req.body.password, 10)
+    }
+    const user = new User(modelData);
     user.save();
     res.json(user);
 }
